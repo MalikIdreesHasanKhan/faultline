@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b0c">
+  <title>FAULTLINE — ML Incident Command</title>
+  <meta name="description" content="Catch the upstream tremor before the model breaks.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header>
+    <a class="wordmark" href="/" aria-label="FAULTLINE home">
+      <span class="mark">F//</span> FAULTLINE
+    </a>
+    <div class="system-state"><span class="live-dot"></span> DATAHUB GRAPH ONLINE</div>
+    <a class="ghost-link" href="/docs">API</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">PRODUCTION ML · INCIDENT INTELLIGENCE</div>
+      <h1>Catch the upstream tremor<br><em>before the model breaks.</em></h1>
+      <p class="lede">FAULTLINE turns a tiny data change into a traced, ranked, governable
+        response—using the context already living in DataHub.</p>
+      <div class="hero-actions">
+        <button class="primary" id="run"><span>Trigger incident replay</span><kbd>R</kbd></button>
+        <span class="hint" id="mode-hint">Checking DataHub mode…</span>
+      </div>
+      <div id="run-error" class="run-error" role="alert"></div>
+      <div class="seismograph" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <section id="command" class="command hidden" aria-live="polite">
+      <div class="command-head">
+        <div>
+          <span class="section-index">01 / INCIDENT</span>
+          <h2 id="incident-id">Scanning graph…</h2>
+        </div>
+        <div class="decision-stamp">
+          <small>RECOMMENDED ACTION</small>
+          <strong id="action">—</strong>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <article><small>Peak risk</small><strong id="peak">0</strong><span>/100</span></article>
+        <article><small>Confidence</small><strong id="confidence">0%</strong></article>
+        <article><small>Exposed assets</small><strong id="exposed">0</strong></article>
+        <article><small>Models at risk</small><strong id="models">0</strong></article>
+      </div>
+
+      <div class="workspace">
+        <section class="graph-panel panel">
+          <div class="panel-title">
+            <div><span class="pulse"></span> LIVE BLAST RADIUS</div>
+            <button class="text-button" id="replay" disabled>Replay propagation</button>
+          </div>
+          <canvas id="graph" role="img" aria-label="Animated downstream lineage blast radius"></canvas>
+          <ol id="graph-fallback" class="sr-only"></ol>
+          <div class="graph-key"><span class="safe"></span> source <span class="warn"></span> exposed
+            <span class="danger"></span> critical</div>
+        </section>
+
+        <aside class="ledger panel">
+          <div class="panel-title">EVIDENCE LEDGER <span id="ledger-count">0 PATHS</span></div>
+          <div id="findings" class="findings"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="analysis" class="analysis hidden">
+      <div class="section-heading">
+        <div><span class="section-index">02 / COUNTERFACTUALS</span>
+          <h2>What if the tremor were different?</h2></div>
+        <p>Same graph. Five failure modes. Zero hand-waving.</p>
+      </div>
+      <div id="counterfactuals" class="counterfactuals"></div>
+    </section>
+
+    <section id="governance" class="governance hidden">
+      <div class="section-heading">
+        <div><span class="section-index">03 / GOVERNANCE</span>
+          <h2>The agent can act. You hold the key.</h2></div>
+        <a href="/api/receipt.md" class="receipt">Download evidence receipt ↓</a>
+      </div>
+      <div class="governance-grid">
+        <div class="panel policy-panel">
+          <div class="panel-title">POLICY-AS-CODE</div>
+          <div id="policy" class="policy"></div>
+          <p>Every threshold is versionable. Every score has a receipt. No hidden reasoning.</p>
+        </div>
+        <div class="panel write-panel">
+          <div class="panel-title">DATAHUB WRITE-BACK <span id="mutation-count"></span></div>
+          <div id="mutations" class="mutations"></div>
+          <label for="approval">Human approval phrase</label>
+          <div class="approval-row">
+            <input id="approval" autocomplete="off" spellcheck="false" placeholder="APPLY FLT-…">
+            <button id="apply" class="danger-button" disabled>Authorize writes</button>
+          </div>
+          <div id="write-status" class="write-status">Preview only · nothing has been changed</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline-section" class="timeline-section hidden">
+      <span class="section-index">04 / MACHINE-SPEED RESPONSE</span>
+      <div id="timeline" class="timeline"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>FAULTLINE / BUILT WITH DATAHUB MCP</span>
+    <span>READ → REASON → PROPOSE → APPROVE → WRITE BACK</span>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

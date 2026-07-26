@@ -1,0 +1,230 @@
+{
+  "incident_id": "FLT-7242AEB5",
+  "status": "awaiting_approval",
+  "signal": {
+    "source_urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+    "kind": "type_changed",
+    "field": "order_total",
+    "before": "DECIMAL(18,2)",
+    "after": "VARCHAR",
+    "observed_at": "2026-07-26T09:41:17+00:00"
+  },
+  "summary": "raw_orders: type_changed exposes 5 downstream assets, including 2 model or deployment assets. Recommended response: block.",
+  "decision": {
+    "action": "block",
+    "confidence": 0.93,
+    "policy": {
+      "validate_at": 50,
+      "retrain_at": 70,
+      "quarantine_at": 82,
+      "block_at": 92,
+      "write_back_at": 70
+    }
+  },
+  "findings": [
+    {
+      "asset": {
+        "urn": "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)",
+        "name": "customer_lifetime_value",
+        "entity_type": "MLFEATURE",
+        "platform": "feast",
+        "owner": "ml-platform",
+        "criticality": 3,
+        "lifecycle": "production",
+        "tags": []
+      },
+      "hops": 2,
+      "path": [
+        "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+        "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+        "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)"
+      ],
+      "matched_field": "order_total",
+      "score": 93,
+      "reasons": [
+        "type_changed has base risk 60",
+        "MLFEATURE exposure adds 10",
+        "tier-3 criticality adds 12",
+        "2-hop distance subtracts 5",
+        "column lineage confirms dependency on 'order_total'",
+        "production lifecycle adds 4"
+      ]
+    },
+    {
+      "asset": {
+        "urn": "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+        "name": "order_features",
+        "entity_type": "DATASET",
+        "platform": "feast",
+        "owner": "ml-platform",
+        "criticality": 3,
+        "lifecycle": "production",
+        "tags": []
+      },
+      "hops": 1,
+      "path": [
+        "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+        "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)"
+      ],
+      "matched_field": "order_total",
+      "score": 92,
+      "reasons": [
+        "type_changed has base risk 60",
+        "DATASET exposure adds 4",
+        "tier-3 criticality adds 12",
+        "column lineage confirms dependency on 'order_total'",
+        "production lifecycle adds 4"
+      ]
+    },
+    {
+      "asset": {
+        "urn": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)",
+        "name": "churn-predictor",
+        "entity_type": "MLMODEL",
+        "platform": "mlflow",
+        "owner": "retention-ml",
+        "criticality": 3,
+        "lifecycle": "production",
+        "tags": []
+      },
+      "hops": 3,
+      "path": [
+        "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+        "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+        "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)",
+        "urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)"
+      ],
+      "matched_field": "order_total",
+      "score": 92,
+      "reasons": [
+        "type_changed has base risk 60",
+        "MLMODEL exposure adds 14",
+        "tier-3 criticality adds 12",
+        "3-hop distance subtracts 10",
+        "column lineage confirms dependency on 'order_total'",
+        "production lifecycle adds 4"
+      ]
+    },
+    {
+      "asset": {
+        "urn": "urn:li:mlModelDeployment:(churn-predictor,blue,PROD)",
+        "name": "churn-predictor-blue",
+        "entity_type": "MLMODEL_DEPLOYMENT",
+        "platform": "kubernetes",
+        "owner": "retention-ml",
+        "criticality": 3,
+        "lifecycle": "production",
+        "tags": []
+      },
+      "hops": 4,
+      "path": [
+        "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+        "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+        "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)",
+        "urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)",
+        "urn:li:mlModelDeployment:(churn-predictor,blue,PROD)"
+      ],
+      "matched_field": null,
+      "score": 79,
+      "reasons": [
+        "type_changed has base risk 60",
+        "MLMODEL_DEPLOYMENT exposure adds 18",
+        "tier-3 criticality adds 12",
+        "4-hop distance subtracts 15",
+        "production lifecycle adds 4"
+      ]
+    },
+    {
+      "asset": {
+        "urn": "urn:li:dashboard:(looker,churn-command-center)",
+        "name": "Churn Command Center",
+        "entity_type": "DASHBOARD",
+        "platform": "looker",
+        "owner": "growth-analytics",
+        "criticality": 2,
+        "lifecycle": "production",
+        "tags": []
+      },
+      "hops": 2,
+      "path": [
+        "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+        "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+        "urn:li:dashboard:(looker,churn-command-center)"
+      ],
+      "matched_field": null,
+      "score": 70,
+      "reasons": [
+        "type_changed has base risk 60",
+        "DASHBOARD exposure adds 5",
+        "tier-2 criticality adds 6",
+        "2-hop distance subtracts 5",
+        "production lifecycle adds 4"
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "kind": "add_tag",
+      "target_urn": "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)",
+      "payload": {
+        "tag": "faultline-at-risk",
+        "incident_id": "FLT-7242AEB5"
+      },
+      "reason": "risk score 93 requires visible catalog context"
+    },
+    {
+      "kind": "add_tag",
+      "target_urn": "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+      "payload": {
+        "tag": "faultline-at-risk",
+        "incident_id": "FLT-7242AEB5"
+      },
+      "reason": "risk score 92 requires visible catalog context"
+    },
+    {
+      "kind": "add_tag",
+      "target_urn": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)",
+      "payload": {
+        "tag": "faultline-at-risk",
+        "incident_id": "FLT-7242AEB5"
+      },
+      "reason": "risk score 92 requires visible catalog context"
+    },
+    {
+      "kind": "add_tag",
+      "target_urn": "urn:li:mlModelDeployment:(churn-predictor,blue,PROD)",
+      "payload": {
+        "tag": "faultline-at-risk",
+        "incident_id": "FLT-7242AEB5"
+      },
+      "reason": "risk score 79 requires visible catalog context"
+    },
+    {
+      "kind": "add_tag",
+      "target_urn": "urn:li:dashboard:(looker,churn-command-center)",
+      "payload": {
+        "tag": "faultline-at-risk",
+        "incident_id": "FLT-7242AEB5"
+      },
+      "reason": "risk score 70 requires visible catalog context"
+    },
+    {
+      "kind": "save_document",
+      "target_urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+      "payload": {
+        "title": "FLT-7242AEB5: ML lineage blast-radius report",
+        "contents": "{\n  \"incident_id\": \"FLT-7242AEB5\",\n  \"summary\": \"raw_orders: type_changed exposes 5 downstream assets, including 2 model or deployment assets. Recommended response: block.\",\n  \"recommended_action\": \"block\",\n  \"signal\": {\n    \"source_urn\": \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n    \"kind\": \"type_changed\",\n    \"field\": \"order_total\",\n    \"before\": \"DECIMAL(18,2)\",\n    \"after\": \"VARCHAR\",\n    \"observed_at\": \"2026-07-26 09:41:17+00:00\"\n  },\n  \"evidence\": [\n    {\n      \"urn\": \"urn:li:mlFeature:(retail.order_features,customer_lifetime_value)\",\n      \"asset\": \"customer_lifetime_value\",\n      \"score\": 93,\n      \"path\": [\n        \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n        \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\",\n        \"urn:li:mlFeature:(retail.order_features,customer_lifetime_value)\"\n      ],\n      \"reasons\": [\n        \"type_changed has base risk 60\",\n        \"MLFEATURE exposure adds 10\",\n        \"tier-3 criticality adds 12\",\n        \"2-hop distance subtracts 5\",\n        \"column lineage confirms dependency on 'order_total'\",\n        \"production lifecycle adds 4\"\n      ]\n    },\n    {\n      \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\",\n      \"asset\": \"order_features\",\n      \"score\": 92,\n      \"path\": [\n        \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n        \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\"\n      ],\n      \"reasons\": [\n        \"type_changed has base risk 60\",\n        \"DATASET exposure adds 4\",\n        \"tier-3 criticality adds 12\",\n        \"column lineage confirms dependency on 'order_total'\",\n        \"production lifecycle adds 4\"\n      ]\n    },\n    {\n      \"urn\": \"urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)\",\n      \"asset\": \"churn-predictor\",\n      \"score\": 92,\n      \"path\": [\n        \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n        \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\",\n        \"urn:li:mlFeature:(retail.order_features,customer_lifetime_value)\",\n        \"urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)\"\n      ],\n      \"reasons\": [\n        \"type_changed has base risk 60\",\n        \"MLMODEL exposure adds 14\",\n        \"tier-3 criticality adds 12\",\n        \"3-hop distance subtracts 10\",\n        \"column lineage confirms dependency on 'order_total'\",\n        \"production lifecycle adds 4\"\n      ]\n    },\n    {\n      \"urn\": \"urn:li:mlModelDeployment:(churn-predictor,blue,PROD)\",\n      \"asset\": \"churn-predictor-blue\",\n      \"score\": 79,\n      \"path\": [\n        \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n        \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\",\n        \"urn:li:mlFeature:(retail.order_features,customer_lifetime_value)\",\n        \"urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)\",\n        \"urn:li:mlModelDeployment:(churn-predictor,blue,PROD)\"\n      ],\n      \"reasons\": [\n        \"type_changed has base risk 60\",\n        \"MLMODEL_DEPLOYMENT exposure adds 18\",\n        \"tier-3 criticality adds 12\",\n        \"4-hop distance subtracts 15\",\n        \"production lifecycle adds 4\"\n      ]\n    },\n    {\n      \"urn\": \"urn:li:dashboard:(looker,churn-command-center)\",\n      \"asset\": \"Churn Command Center\",\n      \"score\": 70,\n      \"path\": [\n        \"urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)\",\n        \"urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)\",\n        \"urn:li:dashboard:(looker,churn-command-center)\"\n      ],\n      \"reasons\": [\n        \"type_changed has base risk 60\",\n        \"DASHBOARD exposure adds 5\",\n        \"tier-2 criticality adds 6\",\n        \"2-hop distance subtracts 5\",\n        \"production lifecycle adds 4\"\n      ]\n    }\n  ]\n}",
+        "related_assets": [
+          "urn:li:dataset:(urn:li:dataPlatform:snowflake,retail.raw_orders,PROD)",
+          "urn:li:mlFeature:(retail.order_features,customer_lifetime_value)",
+          "urn:li:dataset:(urn:li:dataPlatform:feast,retail.order_features,PROD)",
+          "urn:li:mlModel:(urn:li:dataPlatform:mlflow,churn-predictor,PROD)",
+          "urn:li:mlModelDeployment:(churn-predictor,blue,PROD)",
+          "urn:li:dashboard:(looker,churn-command-center)"
+        ]
+      },
+      "reason": "persist the evidence and decision for humans and future agents"
+    }
+  ],
+  "receipt_sha256": "2f869d5614ec4d2d92442cf506c15cd8c3fd97e2a75cad0b9ffa33afc146fc53"
+}

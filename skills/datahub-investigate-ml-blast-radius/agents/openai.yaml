@@ -1,0 +1,4 @@
+interface:
+  display_name: "DataHub ML Blast Radius"
+  short_description: "Investigate ML incidents through DataHub lineage"
+  default_prompt: "Use $datahub-investigate-ml-blast-radius to trace this data change into production ML risk and propose a governed response."

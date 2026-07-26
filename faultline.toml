@@ -1,0 +1,7 @@
+[response]
+# All decisions remain explainable and reviewable. Scores are inclusive.
+validate_at = 50
+retrain_at = 70
+quarantine_at = 82
+block_at = 92
+write_back_at = 70
