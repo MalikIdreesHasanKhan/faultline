@@ -6,7 +6,9 @@ The film is a deterministic React composition: no remote fonts, runtime APIs, or
 third-party footage. It is deliberately voiceless; frame-driven kinetic captions
 carry the story through staged word reveals, semantic highlights, directional
 transitions, scan lines, and restrained glitch echoes over an original ambient score
-bundled under `public/audio`.
+bundled under `public/audio`. Each chapter opens with a campaign punch card and uses
+impact flashes, hard shutters, parallax HUD motion, camera pushes, speed lines, and
+animated telemetry to keep the entire frame in motion.
 
 ## Generate the original ambient score
 
@@ -43,4 +45,5 @@ Verified render:
 - H.264 video, 1920x1080, 30 fps
 - AAC stereo audio, 48 kHz
 - No voiceover; original ambient score only
+- CRF 22 delivery encode with fast-start metadata
 - 146.048 seconds

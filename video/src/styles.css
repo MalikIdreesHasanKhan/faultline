@@ -17,6 +17,48 @@ body { margin: 0; }
   radial-gradient(circle at 75% 5%, #17342b 0, transparent 33%),
   linear-gradient(130deg, transparent 0 47%, #0d1515 48% 49%, transparent 50%),
   var(--ink); color: var(--text); font-family: var(--sans); overflow: hidden; }
+.campaign-dynamics { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.campaign-grid { position: absolute; inset: -90px; opacity: .16;
+  background-image: linear-gradient(#2ed3c61a 1px, transparent 1px),
+  linear-gradient(90deg, #2ed3c61a 1px, transparent 1px);
+  background-size: 46px 46px; transform-origin: center; }
+.campaign-orbit { position: absolute; border: 1px solid #b9f22738; border-radius: 50%;
+  box-shadow: inset 0 0 70px #2ed3c60a, 0 0 90px #2ed3c60a; }
+.orbit-one { width: 760px; height: 760px; right: -310px; top: -270px; }
+.orbit-one::before, .orbit-one::after, .orbit-two::before { content: ""; position: absolute;
+  background: var(--lime); box-shadow: 0 0 18px var(--lime); }
+.orbit-one::before { width: 12px; height: 12px; border-radius: 50%; top: 102px; left: 104px; }
+.orbit-one::after { width: 80px; height: 2px; right: -20px; top: 50%; }
+.orbit-two { width: 420px; height: 420px; left: -180px; bottom: -190px; border-color: #ff6a2a30; }
+.orbit-two::before { width: 8px; height: 8px; border-radius: 50%; right: 44px; top: 74px;
+  background: var(--orange); box-shadow: 0 0 18px var(--orange); }
+.campaign-beam { position: absolute; top: -220px; bottom: -220px; left: 0; width: 260px;
+  opacity: .15; filter: blur(9px);
+  background: linear-gradient(90deg, transparent, #b9f2274d, #2ed3c634, transparent); }
+.campaign-speedlines { position: absolute; inset: 0; overflow: hidden; }
+.campaign-speedlines i { position: absolute; left: 50%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  box-shadow: 0 0 10px #b9f22744; }
+.campaign-readout { position: absolute; top: 97px; right: 82px; color: #71807d;
+  font: 500 10px var(--mono); letter-spacing: .14em; }
+.campaign-flash { position: absolute; inset: 0; background: #dfffaf; mix-blend-mode: screen; }
+.campaign-exit-shutter { position: absolute; inset: 0; background: var(--lime); z-index: 16; }
+.scene-punch { position: absolute; inset: 0; z-index: 15; padding: 215px 120px;
+  background: linear-gradient(110deg, #060909 0 53%, #0d1916 100%);
+  box-shadow: inset 0 0 180px #000; will-change: opacity, transform, clip-path; }
+.scene-punch::after { content: ""; position: absolute; inset: 0; opacity: .08;
+  background: repeating-linear-gradient(105deg, transparent 0 42px, #fff 43px, transparent 45px); }
+.punch-index { position: relative; z-index: 2; font: 700 15px var(--mono);
+  letter-spacing: .24em; margin-bottom: 42px; }
+.punch-copy { position: relative; z-index: 2; font: 900 104px/.86 var(--sans);
+  letter-spacing: -.065em; text-transform: uppercase; }
+.punch-copy strong { display: block; color: var(--text); transform-origin: left center; }
+.punch-copy .punch-accent { margin-left: 260px; -webkit-text-stroke: 1px currentColor;
+  text-shadow: 0 0 40px currentColor; }
+.punch-rule { position: relative; z-index: 2; width: 100%; height: 4px; margin-top: 55px;
+  transform-origin: left; box-shadow: 0 0 22px currentColor; }
+.punch-telemetry { position: relative; z-index: 2; margin-top: 26px; color: #778581;
+  font: 600 12px var(--mono); letter-spacing: .18em; }
 .grain { position: absolute; inset: 0; opacity: .035; pointer-events: none;
   background: repeating-linear-gradient(91deg, #fff 0 1px, transparent 1px 5px),
   repeating-linear-gradient(17deg, #fff 0 1px, transparent 1px 9px); background-size: 137px 89px, 181px 121px; }

@@ -50,7 +50,9 @@ voiceless and tells the story through kinetic captions with word-level reveals,
 semantic highlights, directional transitions, and scan/glitch accents over a
 deterministic ambient score synthesized locally from noise and sine waves. Every
 frame, transition, graph, card, terminal readout, and caption is editable React code
-rather than a screen-recording effect.
+rather than a screen-recording effect. Campaign-style chapter punches, impact
+flashes, scene shutters, parallax HUD motion, camera pushes, speed lines, and
+animated telemetry give the product walkthrough the rhythm of a launch trailer.
 
 ## Use of DataHub
 

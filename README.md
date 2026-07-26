@@ -42,7 +42,9 @@ deck. Its seven scene-aligned chapters animate the incident graph, evidence ledg
 five counterfactuals, approval boundary, verified writes, and engineering proof.
 It is deliberately voiceless: kinetic, word-level captions carry the rhythm and
 story through staged transitions, highlighted concepts, and scan/glitch accents over
-a deterministic original ambient score under `video/public/audio`.
+a deterministic original ambient score under `video/public/audio`. Campaign-style
+chapter punches, impact flashes, scene shutters, parallax HUD motion, camera pushes,
+speed lines, and animated telemetry turn the product walkthrough into a launch film.
 
 ```bash
 cd video

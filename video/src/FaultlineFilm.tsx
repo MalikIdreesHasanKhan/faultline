@@ -30,6 +30,7 @@ type SceneProps = {
   caption?: string;
   durationInFrames: number;
   number: string;
+  punch: [string, string];
 };
 
 const highlightedWords = new Set([
@@ -74,6 +75,137 @@ const captionBeats = (text: string) => {
 
 const cleanWord = (word: string) => word.toLowerCase().replace(/[^a-z-]/g, "");
 
+const SceneDynamics: React.FC<{durationInFrames: number; number: string}> = ({
+  durationInFrames,
+  number,
+}) => {
+  const frame = useCurrentFrame();
+  const scene = Number(number);
+  const direction = scene % 2 === 0 ? 1 : -1;
+  const exit = interpolate(
+    frame,
+    [durationInFrames - 20, durationInFrames],
+    [0, 1],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp"},
+  );
+  const flash = interpolate(frame, [0, 3, 15], [0.8, 0.34, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <div className="campaign-dynamics">
+      <div
+        className="campaign-grid"
+        style={{
+          backgroundPosition: `${direction * frame * 0.7}px ${frame * 0.35}px`,
+          transform: `scale(${1.04 + frame / durationInFrames / 70}) rotate(${direction * 0.4}deg)`,
+        }}
+      />
+      <div
+        className="campaign-orbit orbit-one"
+        style={{transform: `rotate(${direction * frame * 0.18}deg) scale(${1 + Math.sin(frame / 35) * 0.035})`}}
+      />
+      <div
+        className="campaign-orbit orbit-two"
+        style={{transform: `rotate(${-direction * frame * 0.11}deg)`}}
+      />
+      <div
+        className="campaign-beam"
+        style={{transform: `translateX(${((frame * 9 + scene * 260) % 2450) - 380}px) rotate(-14deg)`}}
+      />
+      <div className="campaign-speedlines">
+        {[0, 1, 2, 3, 4, 5].map((line) => (
+          <i
+            key={line}
+            style={{
+              opacity: 0.12 + line * 0.025,
+              top: `${16 + line * 13}%`,
+              transform: `translateX(${direction * ((((frame * (8 + line) + line * 310) % 2350) - 1175))}px)`,
+              width: `${190 + line * 72}px`,
+            }}
+          />
+        ))}
+      </div>
+      <div className="campaign-readout">
+        SCN_{number} · F_{String(Math.max(0, frame)).padStart(4, "0")}
+      </div>
+      <div className="campaign-flash" style={{opacity: flash}} />
+      <div
+        className="campaign-exit-shutter"
+        style={{transform: `scaleX(${exit})`, transformOrigin: direction > 0 ? "left" : "right"}}
+      />
+    </div>
+  );
+};
+
+const ScenePunch: React.FC<{
+  number: string;
+  punch: [string, string];
+}> = ({number, punch}) => {
+  const frame = useCurrentFrame();
+  const scene = Number(number);
+  const accent = scene === 1 || scene === 2 ? C.red : scene === 3 ? C.orange : C.lime;
+  const reveal = interpolate(frame, [0, 11], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.quad),
+  });
+  const leave = interpolate(frame, [34, 48], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.in(Easing.cubic),
+  });
+  const first = spring({
+    frame: frame - 3,
+    fps: FPS,
+    config: {damping: 14, stiffness: 190, mass: 0.45},
+  });
+  const second = spring({
+    frame: frame - 9,
+    fps: FPS,
+    config: {damping: 15, stiffness: 170, mass: 0.5},
+  });
+
+  return (
+    <div
+      className="scene-punch"
+      style={{
+        clipPath: `polygon(0 0, ${reveal * 100}% 0, ${reveal * 100}% 100%, 0 100%)`,
+        opacity: leave,
+        transform: `translateY(${(1 - leave) * -90}px)`,
+      }}
+    >
+      <div className="punch-index" style={{color: accent}}>
+        FAULTLINE // {number}
+      </div>
+      <div className="punch-copy">
+        <strong
+          style={{
+            transform: `translateX(${(1 - first) * -180}px) skewX(${(1 - first) * -10}deg)`,
+          }}
+        >
+          {punch[0]}
+        </strong>
+        <strong
+          className="punch-accent"
+          style={{
+            color: accent,
+            transform: `translateX(${(1 - second) * 210}px) skewX(${(1 - second) * 10}deg)`,
+          }}
+        >
+          {punch[1]}
+        </strong>
+      </div>
+      <div className="punch-rule" style={{background: accent, transform: `scaleX(${reveal})`}} />
+      <div className="punch-telemetry">
+        SIGNAL ACQUIRED&nbsp;&nbsp;·&nbsp;&nbsp;GRAPH LOCKED&nbsp;&nbsp;·&nbsp;&nbsp;
+        RESPONSE READY
+      </div>
+    </div>
+  );
+};
+
 const KineticCaption: React.FC<{
   durationInFrames: number;
   number: string;
@@ -81,7 +213,7 @@ const KineticCaption: React.FC<{
 }> = ({durationInFrames, number, text}) => {
   const frame = useCurrentFrame();
   const beats = captionBeats(text);
-  const start = 34;
+  const start = 52;
   const end = durationInFrames - 20;
   const beatLength = Math.max(48, (end - start) / beats.length);
   const activeBeat = Math.max(
@@ -182,19 +314,48 @@ const Scene: React.FC<SceneProps> = ({
   caption,
   durationInFrames,
   number,
+  punch,
 }) => {
   const frame = useCurrentFrame();
-  const enter = spring({frame, fps: FPS, config: {damping: 18, stiffness: 110}});
+  const enter = spring({
+    frame: frame - 27,
+    fps: FPS,
+    config: {damping: 16, stiffness: 125},
+  });
+  const exit = interpolate(
+    frame,
+    [durationInFrames - 20, durationInFrames - 5],
+    [1, 0],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp"},
+  );
+  const camera = interpolate(
+    frame,
+    [28, durationInFrames - 24],
+    [0, 1],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp"},
+  );
+  const direction = Number(number) % 2 === 0 ? 1 : -1;
+  const impactShake = Math.sin(frame * 2.9) * Math.max(0, 1 - frame / 24) * 9;
   return (
     <AbsoluteFill className="scene-shell">
+      <SceneDynamics durationInFrames={durationInFrames} number={number} />
       <div className="grain" />
-      <header className="film-header">
+      <header
+        className="film-header"
+        style={{
+          opacity: enter * exit,
+          transform: `translateY(${(1 - enter) * -18}px)`,
+        }}
+      >
         <div className="film-logo"><span>F//</span> FAULTLINE</div>
         <div className="film-online"><i /> DATAHUB GRAPH ONLINE</div>
       </header>
       <main
         className="film-main"
-        style={{opacity: enter, transform: `translateY(${(1 - enter) * 24}px)`}}
+        style={{
+          opacity: enter * exit,
+          transform: `translate3d(${direction * camera * 18 + impactShake}px, ${Math.sin(frame / 38) * 4 + (1 - enter) * 35}px, 0) scale(${1 + camera * 0.016})`,
+        }}
       >
         <div className="film-eyebrow">{number} / {eyebrow}</div>
         {children}
@@ -206,6 +367,7 @@ const Scene: React.FC<SceneProps> = ({
         <span>READ → REASON → PROPOSE → APPROVE → WRITE BACK</span>
         <span>BUILT WITH DATAHUB MCP</span>
       </footer>
+      <ScenePunch number={number} punch={punch} />
     </AbsoluteFill>
   );
 };
@@ -256,6 +418,7 @@ const HookScene: React.FC = () => {
       eyebrow="PRODUCTION ML · INCIDENT INTELLIGENCE"
       caption="A column changed. Your monitor knows. But does your deployed model break?"
       durationInFrames={18 * FPS}
+      punch={["ONE CHANGE.", "EVERY CONSEQUENCE."]}
     >
       <div className="hero-film">
         <h1>
@@ -351,6 +514,7 @@ const BlastScene: React.FC = () => {
       eyebrow="INCIDENT"
       caption="FAULTLINE follows the changed field from Snowflake through Feast and MLflow into production."
       durationInFrames={27 * FPS}
+      punch={["TRACE", "THE BLAST RADIUS."]}
     >
       <div className="title-row">
         <div>
@@ -391,6 +555,7 @@ const EvidenceScene: React.FC = () => {
       eyebrow="EVIDENCE LEDGER"
       caption="Every point has a reason. No invented explanation and no opaque confidence shortcut."
       durationInFrames={19 * FPS}
+      punch={["NO VIBES.", "JUST EVIDENCE."]}
     >
       <div className="evidence-layout">
         <div>
@@ -451,6 +616,7 @@ const CounterfactualScene: React.FC = () => {
       eyebrow="COUNTERFACTUAL LAB"
       caption="Same graph. Five failure modes. See how the response changes before you act."
       durationInFrames={17 * FPS}
+      punch={["SIMULATE", "BEFORE YOU ACT."]}
     >
       <h2>What if the tremor were different?</h2>
       <div className="mode-grid">
@@ -494,6 +660,7 @@ const GovernanceScene: React.FC = () => {
       eyebrow="GOVERNANCE"
       caption="The agent can act. A human still holds the key."
       durationInFrames={27 * FPS}
+      punch={["THE AGENT ACTS.", "YOU HOLD THE KEY."]}
     >
       <div className="govern-title">
         <div><h2>The agent can act.<br/><em>You hold the key.</em></h2></div>
@@ -539,6 +706,7 @@ const EngineeringScene: React.FC = () => {
       eyebrow="ENGINEERING PROOF"
       caption="The same engine runs credential-free for judges or against open-source DataHub over MCP."
       durationInFrames={24 * FPS}
+      punch={["NOT A MOCKUP.", "A GOVERNED LOOP."]}
     >
       <div className="engineering-layout">
         <div>
@@ -586,6 +754,7 @@ const CloseScene: React.FC = () => {
       eyebrow="THE GRAPH REMEMBERS"
       caption="Read the graph. Explain the risk. Let a human decide. Leave the graph better."
       durationInFrames={14 * FPS}
+      punch={["READ. REASON. ACT.", "LEAVE THE GRAPH BETTER."]}
     >
       <div className="close" style={{transform: `scale(${0.94 + scale * 0.06})`}}>
         <div className="close-logo"><span>F//</span> FAULTLINE</div>
