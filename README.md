@@ -35,6 +35,26 @@ live Kubernetes model deployment. The console then lets you:
 
 No credentials or network access are needed for this judge scenario.
 
+## The 2:26 cinematic demo
+
+The submission includes a programmatic Remotion film rather than a captured slide
+deck. Its seven scene-aligned chapters animate the incident graph, evidence ledger,
+five counterfactuals, approval boundary, verified writes, and engineering proof.
+Narration and a deterministic original ambient score are included under
+`video/public/audio`.
+
+```bash
+cd video
+npm install
+npm run typecheck
+npm run still
+npm run render
+```
+
+The final 1920x1080 H.264 film is written to
+`video/out/faultline-demo.mp4`. See [the film README](video/README.md) and the
+[timed narration](docs/demo-script.md).
+
 ## Why it matters
 
 Monitoring tools tell an on-call engineer that a column changed. FAULTLINE answers
@@ -147,6 +167,7 @@ skills/             reusable DataHub incident-response skill
 tests/              unit, adapter-contract, and end-to-end tests
 docs/               architecture, judge map, and recording script
 examples/           deterministic sample outputs
+video/              editable Remotion film, narration, score, and render scripts
 ```
 
 See [architecture](docs/architecture.md), [judging map](docs/judging-map.md), and

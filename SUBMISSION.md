@@ -45,6 +45,11 @@ lifecycle, graph distance, and confirmed field lineage. Policy thresholds live i
 TOML. Markdown and JSON evidence receipts include a SHA-256 seal over the canonical
 incident plan.
 
+The 2:26 demo film is built in Remotion at 1920x1080 and 30 fps. Seven
+scene-aligned narration clips accompany a deterministic ambient score synthesized
+locally from noise and sine waves. Every frame, transition, graph, card, terminal
+readout, and subtitle is editable React code rather than a screen-recording effect.
+
 ## Use of DataHub
 
 FAULTLINE reads entities and downstream column lineage with `get_entities` and
@@ -69,6 +74,7 @@ the identical domain workflow used by the live adapter.
 - Durable DataHub write-back and portable evidence receipts.
 - Reusable DataHub ML incident-response skill.
 - Fifteen automated tests, CI on Python 3.10 and 3.12, and a container image.
+- A fully programmatic, narrated Remotion demo film under the three-minute limit.
 
 ## What we learned
 
@@ -86,5 +92,5 @@ to separate operational executors with their own authorization boundary.
 
 - Public Apache-2.0 repository: TODO
 - Public demo URL or judge access: TODO
-- Public video under three minutes: TODO
+- Public video under three minutes: TODO — publish `video/out/faultline-demo.mp4`
 - Optional upstream DataHub skill pull request: TODO

@@ -7,6 +7,10 @@ __pycache__/
 .ruff_cache/
 build/
 dist/
+video/node_modules/
+video/out/
+video/.remotion/
+video/.npm-cache-repair/
 *.egg-info/
 .coverage
 htmlcov/

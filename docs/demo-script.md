@@ -1,70 +1,60 @@
-# Demo script — 2 minutes 35 seconds
+# Remotion demo film — 2 minutes 26 seconds
 
-The video must stay below three minutes. Record at 1440p with the browser at 100%
-zoom and notifications disabled.
+This is the timed narration implemented in `video/src/FaultlineFilm.tsx`. The
+render is 1920x1080 at 30 fps and stays safely below the three-minute limit.
 
-## 0:00–0:18 — The problem
+## 0:00–0:18 — The tremor
 
-Open on the FAULTLINE hero.
+> A column changed. Your monitor knows. But does your deployed model break?
+> FAULTLINE catches the upstream tremor before the model does.
 
-> “A column changed. Your monitor knows. But does your deployed model break?
-> FAULTLINE catches the upstream tremor before the model does.”
+The seismic cold-open resolves into the core promise and a DataHub lineage map.
 
-Select **Trigger incident replay**.
+## 0:18–0:45 — The blast radius
 
-## 0:18–0:53 — DataHub makes the graph actionable
+> A Snowflake order field changed from decimal to text. FAULTLINE follows that
+> field through Feast and MLflow into production. Five assets are exposed. Peak
+> risk: ninety-three. Recommended action: block.
 
-Let the propagation finish.
+The graph animates from the changed source through feature, model, deployment, and
+dashboard. The score strip and incident-specific verdict enter as the paths settle.
 
-> “A Snowflake order field changed from decimal to text. Using DataHub lineage,
-> FAULTLINE follows that field through Feast, an MLflow churn model, its live
-> deployment, and the executive dashboard. It ranks five affected assets and
-> recommends blocking the rollout with 93 percent confidence.”
+## 0:45–1:04 — Evidence, not vibes
 
-Open one evidence entry.
+> Every point is inspectable: signal severity, asset type, criticality, graph
+> distance, and confirmed column lineage. No invented explanation.
 
-> “Every point is inspectable: signal severity, asset type, production criticality,
-> hop distance, and confirmed column lineage. No invented explanation.”
+The evidence ledger assembles into the deterministic score while the SHA-256-sealed
+receipt appears beside it.
 
-## 0:53–1:18 — Counterfactuals
+## 1:04–1:21 — Counterfactual lab
 
-Scroll to the five cards.
+> Same graph. Five failure modes. See how the response changes before you act.
 
-> “The same graph is replayed under five failure modes. A freshness breach retrains;
-> a removed field blocks. On-call can see how the decision changes before acting.”
+Five simultaneous replays compare field removal, type change, null-rate spike,
+freshness breach, and volume anomaly. Their risk and response differ visibly.
 
-Select **Freshness breach** to promote it into the active incident, then return to
-**Type changed** before the governance section.
+## 1:21–1:48 — Governed action
 
-## 1:18–1:58 — Governed action
+> The agent can act. A human still holds the key. Policy thresholds are versioned,
+> every write is previewed, and only an incident-specific approval phrase opens the
+> boundary. Then FAULTLINE re-reads each mutation and seals the receipt.
 
-Scroll to Governance.
+Policy-as-code sits beside six staged DataHub writes. The typed approval phrase
+unlocks execution, every write changes to `VERIFIED`, and the seal appears.
 
-> “The policy is versionable. The agent proposes five risk tags and one DataHub
-> incident document—but it cannot write yet.”
+## 1:48–2:12 — Engineering proof
 
-Download the receipt.
+> This is not a mockup. The same engine runs credential-free for judges or against
+> open-source DataHub over MCP. Fifteen tests cover scoring, counterfactuals,
+> refusal, ordered writes, MCP contracts, and the full web workflow. A reusable
+> DataHub skill packages the pattern.
 
-> “This sealed receipt carries the signal, exact paths, score ledger, policy snapshot,
-> and proposed mutations into the postmortem.”
+The actual agent loop and quality-gate results appear in a terminal composition.
 
-Type the displayed `APPLY FLT-…` phrase and authorize.
+## 2:12–2:26 — Close
 
-> “Only this incident-specific phrase opens the write boundary. DataHub now becomes
-> durable memory for the next human or agent.”
+> FAULTLINE. Read the graph. Explain the risk. Let a human decide. Leave the graph
+> better.
 
-## 1:58–2:25 — Real integration and engineering
-
-Cut briefly to the repository and tests.
-
-> “The exact engine runs credential-free for judges or against open-source DataHub
-> over the official MCP server. Fifteen tests cover policy, counterfactuals, refusal,
-> ordered writes, official MCP schemas, and the web workflow. A reusable DataHub
-> skill packages the pattern for other agents.”
-
-## 2:25–2:35 — Close
-
-Return to the hero.
-
-> “FAULTLINE: read the graph, explain the risk, let a human decide, and leave the
-> graph better.”
+The final lockup returns to the seismic line and ends on the product promise.
