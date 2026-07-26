@@ -40,8 +40,8 @@ No credentials or network access are needed for this judge scenario.
 The submission includes a programmatic Remotion film rather than a captured slide
 deck. Its seven scene-aligned chapters animate the incident graph, evidence ledger,
 five counterfactuals, approval boundary, verified writes, and engineering proof.
-Narration and a deterministic original ambient score are included under
-`video/public/audio`.
+It is deliberately voiceless: animated captions carry the story over a deterministic
+original ambient score under `video/public/audio`.
 
 ```bash
 cd video
@@ -53,7 +53,7 @@ npm run render
 
 The final 1920x1080 H.264 film is written to
 `video/out/faultline-demo.mp4`. See [the film README](video/README.md) and the
-[timed narration](docs/demo-script.md).
+[timed visual rundown](docs/demo-script.md).
 
 ## Why it matters
 
@@ -167,7 +167,7 @@ skills/             reusable DataHub incident-response skill
 tests/              unit, adapter-contract, and end-to-end tests
 docs/               architecture, judge map, and recording script
 examples/           deterministic sample outputs
-video/              editable Remotion film, narration, score, and render scripts
+video/              editable Remotion film, ambient score, and render scripts
 ```
 
 See [architecture](docs/architecture.md), [judging map](docs/judging-map.md), and

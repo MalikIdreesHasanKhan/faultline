@@ -1,7 +1,8 @@
-# Remotion demo film — 2 minutes 26 seconds
+# Remotion visual rundown — 2 minutes 26 seconds
 
-This is the timed narration implemented in `video/src/FaultlineFilm.tsx`. The
-render is 1920x1080 at 30 fps and stays safely below the three-minute limit.
+This is the timed visual story implemented in `video/src/FaultlineFilm.tsx`. The
+render is 1920x1080 at 30 fps, contains no voiceover, and stays safely below the
+three-minute limit. The quoted lines below are on-screen captions, not narration.
 
 ## 0:00–0:18 — The tremor
 

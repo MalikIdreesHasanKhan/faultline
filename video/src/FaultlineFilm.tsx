@@ -439,16 +439,6 @@ const CloseScene: React.FC = () => {
   );
 };
 
-const audio = [
-  [0, "audio/01-hook.mp3"],
-  [18, "audio/02-blast.mp3"],
-  [45, "audio/03-evidence.mp3"],
-  [64, "audio/04-counterfactual.mp3"],
-  [81, "audio/05-governance.mp3"],
-  [108, "audio/06-engineering.mp3"],
-  [132, "audio/07-close.mp3"],
-] as const;
-
 export const FaultlineFilm: React.FC = () => {
   const frame = useCurrentFrame();
   const progress = frame / (DURATION_SECONDS * FPS);
@@ -461,11 +451,6 @@ export const FaultlineFilm: React.FC = () => {
       <Sequence from={81 * FPS} durationInFrames={27 * FPS}><GovernanceScene /></Sequence>
       <Sequence from={108 * FPS} durationInFrames={24 * FPS}><EngineeringScene /></Sequence>
       <Sequence from={132 * FPS} durationInFrames={14 * FPS}><CloseScene /></Sequence>
-      {audio.map(([start, file]) => (
-        <Sequence from={start * FPS + 12} key={file}>
-          <Audio src={staticFile(file)} volume={0.96} />
-        </Sequence>
-      ))}
       <Audio
         src={staticFile("audio/ambient-bed.wav")}
         volume={(f) => interpolate(f, [0, 45, DURATION_SECONDS * FPS - 60, DURATION_SECONDS * FPS], [0, 0.13, 0.13, 0], {

@@ -45,10 +45,11 @@ lifecycle, graph distance, and confirmed field lineage. Policy thresholds live i
 TOML. Markdown and JSON evidence receipts include a SHA-256 seal over the canonical
 incident plan.
 
-The 2:26 demo film is built in Remotion at 1920x1080 and 30 fps. Seven
-scene-aligned narration clips accompany a deterministic ambient score synthesized
-locally from noise and sine waves. Every frame, transition, graph, card, terminal
-readout, and subtitle is editable React code rather than a screen-recording effect.
+The 2:26 demo film is built in Remotion at 1920x1080 and 30 fps. It is intentionally
+voiceless and tells the story through animated captions over a deterministic ambient
+score synthesized locally from noise and sine waves. Every frame, transition, graph,
+card, terminal readout, and caption is editable React code rather than a
+screen-recording effect.
 
 ## Use of DataHub
 
@@ -74,7 +75,7 @@ the identical domain workflow used by the live adapter.
 - Durable DataHub write-back and portable evidence receipts.
 - Reusable DataHub ML incident-response skill.
 - Fifteen automated tests, CI on Python 3.10 and 3.12, and a container image.
-- A fully programmatic, narrated Remotion demo film under the three-minute limit.
+- A fully programmatic, voiceless Remotion demo film under the three-minute limit.
 
 ## What we learned
 
