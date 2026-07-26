@@ -417,7 +417,7 @@ const HookScene: React.FC = () => {
       number="00"
       eyebrow="PRODUCTION ML · INCIDENT INTELLIGENCE"
       caption="A column changed. Your monitor knows. But does your deployed model break?"
-      durationInFrames={18 * FPS}
+      durationInFrames={8 * FPS}
       punch={["ONE CHANGE.", "EVERY CONSEQUENCE."]}
     >
       <div className="hero-film">
@@ -499,6 +499,300 @@ const LineageGraph: React.FC<{progress: number}> = ({progress}) => (
     })}
   </svg>
 );
+
+const demoFindings = [
+  ["order_features", "FEAST TABLE", 92],
+  ["customer_value", "ML FEATURE", 93],
+  ["churn-predictor", "MLFLOW MODEL", 92],
+  ["churn-blue", "DEPLOYMENT", 79],
+] as const;
+
+const demoModes = [
+  ["FIELD REMOVED", 100, "BLOCK"],
+  ["TYPE CHANGED", 93, "BLOCK"],
+  ["NULL-RATE SPIKE", 85, "QUARANTINE"],
+  ["FRESHNESS BREACH", 77, "RETRAIN"],
+  ["VOLUME ANOMALY", 73, "RETRAIN"],
+] as const;
+
+const demoClicks = [160, 660, 820, 1200, 1400, 1800, 1950, 2220];
+
+const DemoCursor: React.FC<{frame: number}> = ({frame}) => {
+  const input = [0, 80, 160, 300, 600, 660, 760, 820, 1000, 1200, 1350, 1400, 1600, 1800, 1900, 1950, 2100, 2220, 2400, 2690];
+  const x = interpolate(
+    frame,
+    input,
+    [1680, 1380, 250, 250, 900, 900, 1500, 1500, 1500, 1230, 560, 560, 1700, 1700, 1200, 1120, 1450, 1700, 1600, 1710],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic)},
+  );
+  const y = interpolate(
+    frame,
+    input,
+    [150, 260, 580, 510, 486, 486, 560, 560, 480, 510, 510, 510, 287, 287, 620, 620, 620, 620, 600, 180],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic)},
+  );
+  const pulse = Math.max(
+    ...demoClicks.map((click) =>
+      interpolate(Math.abs(frame - click), [0, 13], [1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      }),
+    ),
+  );
+  const pressed = demoClicks.some((click) => Math.abs(frame - click) < 4);
+
+  return (
+    <div
+      className="demo-cursor"
+      style={{transform: `translate3d(${x}px, ${y}px, 0) scale(${pressed ? 0.82 : 1})`}}
+    >
+      <div className="cursor-ring" style={{opacity: pulse, transform: `scale(${1 + (1 - pulse) * 1.6})`}} />
+      <svg viewBox="0 0 36 44" aria-hidden="true">
+        <path d="M3 2 31 26l-13 2 8 12-7 4-7-13-9 9Z" />
+      </svg>
+    </div>
+  );
+};
+
+const demoCallouts = [
+  [92, 230, "CLICK", "TRIGGER INCIDENT REPLAY"],
+  [350, 560, "LIVE", "COLUMN-AWARE BLAST RADIUS"],
+  [760, 900, "OPEN", "EXPLAINABLE EVIDENCE"],
+  [1100, 1320, "CLICK", "REPLAY A FAILURE MODE"],
+  [1730, 1880, "DOWNLOAD", "SEALED EVIDENCE RECEIPT"],
+  [1900, 2180, "TYPE", "INCIDENT-SCOPED APPROVAL"],
+  [2190, 2370, "CLICK", "AUTHORIZE + VERIFY"],
+] as const;
+
+const DemoCallout: React.FC<{frame: number}> = ({frame}) => (
+  <>
+    {demoCallouts.map(([start, end, verb, copy]) => {
+      const enter = interpolate(frame, [start, start + 12], [0, 1], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+        easing: Easing.out(Easing.cubic),
+      });
+      const leave = interpolate(frame, [end - 12, end], [1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+        easing: Easing.in(Easing.cubic),
+      });
+      return (
+        <div
+          className="demo-callout"
+          key={copy}
+          style={{
+            opacity: enter * leave,
+            transform: `translateX(${(1 - enter) * -70 + (1 - leave) * 70}px)`,
+          }}
+        >
+          <b>{verb}</b>
+          <span>{copy}</span>
+        </div>
+      );
+    })}
+  </>
+);
+
+const DemoToast: React.FC<{frame: number}> = ({frame}) => {
+  const toast =
+    frame >= 2270 && frame < 2430
+      ? ["✓ WRITE-BACK VERIFIED", "6 durable context writes applied"]
+      : frame >= 1800 && frame < 1900
+        ? ["↓ RECEIPT DOWNLOADED", "FLT-7242AEB5 · SHA-256 sealed"]
+        : frame >= 1200 && frame < 1370
+          ? ["↻ COUNTERFACTUAL REPLAY", "Freshness breach · RETRAIN · 77/100"]
+          : null;
+  if (!toast) return null;
+  const age = frame >= 2270 ? frame - 2270 : frame >= 1800 ? frame - 1800 : frame - 1200;
+  const enter = spring({frame: age, fps: FPS, config: {damping: 15, stiffness: 170}});
+  return (
+    <div className="demo-toast" style={{transform: `translateX(${(1 - enter) * 120}px)`, opacity: enter}}>
+      <b>{toast[0]}</b>
+      <span>{toast[1]}</span>
+    </div>
+  );
+};
+
+const ProductDemoScene: React.FC = () => {
+  const frame = useCurrentFrame();
+  const pageScroll = interpolate(
+    frame,
+    [0, 150, 260, 390, 870, 1030, 1480, 1680, 2360, 2530, 2700],
+    [0, 0, 720, 720, 720, 1570, 1570, 2170, 2170, 2690, 2690],
+    {extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic)},
+  );
+  const browserIn = spring({frame, fps: FPS, config: {damping: 18, stiffness: 105}});
+  const browserOut = interpolate(frame, [2640, 2700], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const investigated = frame >= 250;
+  const loading = frame >= 160 && frame < 250;
+  const graphProgress = interpolate(frame, [300, 560], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const replayPulse = interpolate(frame, [660, 675, 730], [0, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const freshActive = frame >= 1200 && frame < 1400;
+  const typed = Math.floor(
+    interpolate(frame, [1970, 2150], [0, 18], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }),
+  );
+  const approval = "APPLY FLT-7242AEB5".slice(0, typed);
+  const applying = frame >= 2220 && frame < 2270;
+  const verified = frame >= 2270;
+
+  return (
+    <AbsoluteFill className="product-demo-shell">
+      <SceneDynamics durationInFrames={2700} number="07" />
+      <div
+        className="demo-browser"
+        style={{
+          opacity: browserIn * browserOut,
+          transform: `perspective(1800px) rotateX(${(1 - browserIn) * 7}deg) scale(${0.91 + browserIn * 0.09 + (1 - browserOut) * 0.05}) translateY(${(1 - browserIn) * 80}px)`,
+        }}
+      >
+        <div className="demo-browser-bar">
+          <div className="browser-dots"><i /><i /><i /></div>
+          <div className="browser-address"><span>◆</span> faultline.local / incident-command</div>
+          <div className="browser-live"><i /> LIVE PRODUCT</div>
+        </div>
+        <div className="demo-viewport">
+          <div className="demo-page" style={{transform: `translateY(${-pageScroll}px)`}}>
+            <header className="demo-header">
+              <div className="demo-wordmark"><span>F//</span> FAULTLINE</div>
+              <div className="demo-online"><i /> DATAHUB GRAPH ONLINE</div>
+              <div className="demo-api">API</div>
+            </header>
+
+            <section className="demo-hero">
+              <div className="demo-eyebrow">PRODUCTION ML · INCIDENT INTELLIGENCE</div>
+              <h1>Catch the upstream tremor<br/><em>before the model breaks.</em></h1>
+              <p>FAULTLINE turns a tiny data change into a traced, ranked, governable response—using the context already living in DataHub.</p>
+              <div className="demo-hero-action">
+                <button className={loading ? "loading" : ""}>
+                  {loading ? "Traversing DataHub…" : investigated ? "Replay incident" : "Trigger incident replay"}
+                  <kbd>R</kbd>
+                </button>
+                <span>Credential-free judge scenario · 4 seconds</span>
+              </div>
+              <SeismicTrace intensity={0.7} />
+            </section>
+
+            <section className="demo-incident">
+              <div className="demo-section-heading">
+                <div><small>01 / INCIDENT</small><h2>FLT-7242AEB5</h2>
+                  <b>order_total&nbsp;&nbsp; DECIMAL(18,2) → VARCHAR</b></div>
+                <div className="demo-stamp"><small>RECOMMENDED ACTION</small><strong>{freshActive ? "RETRAIN" : "BLOCK"}</strong></div>
+              </div>
+              <div className="demo-metrics">
+                <Metric label="PEAK RISK" value={freshActive ? "77/100" : "93/100"} accent={freshActive ? C.lime : C.red} />
+                <Metric label="CONFIDENCE" value={freshActive ? "86%" : "93%"} />
+                <Metric label="EXPOSED ASSETS" value="5" />
+                <Metric label="MODELS AT RISK" value="2" />
+              </div>
+              <div className="demo-workspace">
+                <div className="demo-graph panel">
+                  <div className="panel-head"><span><i /> LIVE BLAST RADIUS</span><b>Replay propagation</b></div>
+                  <div style={{opacity: 0.78 + replayPulse * 0.22}}>
+                    <LineageGraph progress={replayPulse > 0 ? replayPulse : graphProgress} />
+                  </div>
+                </div>
+                <div className="demo-ledger panel">
+                  <div className="panel-head"><span>EVIDENCE LEDGER</span><b>5 PATHS</b></div>
+                  {demoFindings.map(([name, type, score], index) => (
+                    <div className="demo-finding" key={name}>
+                      <div><strong>{name}</strong><small>{type} · {index + 1} HOPS</small></div>
+                      <b>{score}</b>
+                      <span><i style={{width: `${score}%`}} /></span>
+                      <p>+ production lifecycle · confirmed column lineage</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="demo-counter">
+              <div className="demo-section-heading">
+                <div><small>02 / COUNTERFACTUALS</small><h2>What if the tremor were different?</h2></div>
+                <p>Same graph. Five failure modes. Zero hand-waving.</p>
+              </div>
+              <div className="demo-mode-grid">
+                {demoModes.map(([label, score, action], index) => {
+                  const selected = freshActive ? index === 3 : index === 1;
+                  return (
+                    <button className={selected ? "selected" : ""} key={label}>
+                      <small>{selected ? "ACTIVE REPLAY" : "SIMULATED"}</small>
+                      <h3>{label}</h3>
+                      <strong>{score}</strong><span>/100</span>
+                      <b>{action}</b>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="demo-governance">
+              <div className="demo-section-heading">
+                <div><small>03 / GOVERNANCE</small><h2>The agent can act. You hold the key.</h2></div>
+                <div className="demo-receipt">Download evidence receipt ↓</div>
+              </div>
+              <div className="demo-govern-grid">
+                <div className="panel">
+                  <div className="panel-head">POLICY-AS-CODE</div>
+                  {[["VALIDATE", 50], ["RETRAIN", 70], ["QUARANTINE", 82], ["BLOCK", 92]].map(([label, score]) => (
+                    <div className="demo-policy" key={label}>
+                      <b>{label}</b><span><i style={{width: `${score}%`}} /></span><strong>{score}</strong>
+                    </div>
+                  ))}
+                  <p>Every threshold is versionable. Every score has a receipt.</p>
+                </div>
+                <div className="panel demo-writes">
+                  <div className="panel-head"><span>DATAHUB WRITE-BACK</span><b>6 STAGED</b></div>
+                  {["TAG · order_features", "TAG · customer_value", "TAG · churn-predictor", "TAG · churn-blue", "TAG · command-center", "DOCUMENT · evidence receipt"].map((write, index) => (
+                    <div className="demo-mutation" key={write}>
+                      <span>0{index + 1}</span><b>{write}</b><strong>{verified ? "✓ VERIFIED" : "STAGED"}</strong>
+                    </div>
+                  ))}
+                  <label>INCIDENT-SPECIFIC APPROVAL PHRASE</label>
+                  <div className="demo-approval">
+                    <div>{approval}<i /></div>
+                    <button className={typed === 18 ? "ready" : ""}>
+                      {verified ? "APPLIED" : applying ? "APPLYING…" : "AUTHORIZE WRITES"}
+                    </button>
+                  </div>
+                  <div className={verified ? "demo-write-status verified" : "demo-write-status"}>
+                    {verified ? "✓ 6 durable context writes applied and re-read" : applying ? "Applying approved DataHub mutations…" : "Preview only · nothing has been changed"}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="demo-timeline">
+              <small>04 / MACHINE-SPEED RESPONSE</small>
+              <div>
+                {["SIGNAL RECEIVED", "LINEAGE RESOLVED", "HUMAN APPROVED", "CONTEXT VERIFIED"].map((event, index) => (
+                  <article key={event}><time>00:0{index + 1}.2</time><b>{event}</b></article>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <DemoCallout frame={frame} />
+      <DemoToast frame={frame} />
+      <DemoCursor frame={frame} />
+      <div className="master-progress"><i style={{width: `${frame / 2700 * 100}%`}} /></div>
+    </AbsoluteFill>
+  );
+};
 
 const BlastScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -705,7 +999,7 @@ const EngineeringScene: React.FC = () => {
       number="05"
       eyebrow="ENGINEERING PROOF"
       caption="The same engine runs credential-free for judges or against open-source DataHub over MCP."
-      durationInFrames={24 * FPS}
+      durationInFrames={13 * FPS}
       punch={["NOT A MOCKUP.", "A GOVERNED LOOP."]}
     >
       <div className="engineering-layout">
@@ -752,8 +1046,8 @@ const CloseScene: React.FC = () => {
     <Scene
       number="06"
       eyebrow="THE GRAPH REMEMBERS"
-      caption="Read the graph. Explain the risk. Let a human decide. Leave the graph better."
-      durationInFrames={14 * FPS}
+      caption="Leave the graph better."
+      durationInFrames={11 * FPS}
       punch={["READ. REASON. ACT.", "LEAVE THE GRAPH BETTER."]}
     >
       <div className="close" style={{transform: `scale(${0.94 + scale * 0.06})`}}>
@@ -773,13 +1067,10 @@ export const FaultlineFilm: React.FC = () => {
   const progress = frame / (DURATION_SECONDS * FPS);
   return (
     <AbsoluteFill style={{backgroundColor: C.ink}}>
-      <Sequence from={0} durationInFrames={18 * FPS}><HookScene /></Sequence>
-      <Sequence from={18 * FPS} durationInFrames={27 * FPS}><BlastScene /></Sequence>
-      <Sequence from={45 * FPS} durationInFrames={19 * FPS}><EvidenceScene /></Sequence>
-      <Sequence from={64 * FPS} durationInFrames={17 * FPS}><CounterfactualScene /></Sequence>
-      <Sequence from={81 * FPS} durationInFrames={27 * FPS}><GovernanceScene /></Sequence>
-      <Sequence from={108 * FPS} durationInFrames={24 * FPS}><EngineeringScene /></Sequence>
-      <Sequence from={132 * FPS} durationInFrames={14 * FPS}><CloseScene /></Sequence>
+      <Sequence from={0} durationInFrames={8 * FPS}><HookScene /></Sequence>
+      <Sequence from={8 * FPS} durationInFrames={90 * FPS}><ProductDemoScene /></Sequence>
+      <Sequence from={98 * FPS} durationInFrames={13 * FPS}><EngineeringScene /></Sequence>
+      <Sequence from={111 * FPS} durationInFrames={11 * FPS}><CloseScene /></Sequence>
       <Audio
         src={staticFile("audio/ambient-bed.wav")}
         volume={(f) => interpolate(f, [0, 45, DURATION_SECONDS * FPS - 60, DURATION_SECONDS * FPS], [0, 0.13, 0.13, 0], {

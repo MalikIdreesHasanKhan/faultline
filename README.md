@@ -35,11 +35,12 @@ live Kubernetes model deployment. The console then lets you:
 
 No credentials or network access are needed for this judge scenario.
 
-## The 2:26 cinematic demo
+## The 2:02 cinematic demo
 
-The submission includes a programmatic Remotion film rather than a captured slide
-deck. Its seven scene-aligned chapters animate the incident graph, evidence ledger,
-five counterfactuals, approval boundary, verified writes, and engineering proof.
+The submission includes a programmatic Remotion film built around a continuous,
+cursor-driven product demo rather than a captured slide deck. The demo visibly
+clicks through the real console workflow: investigation, lineage replay, evidence,
+counterfactual selection, receipt download, typed approval, and verified write-back.
 It is deliberately voiceless: kinetic, word-level captions carry the rhythm and
 story through staged transitions, highlighted concepts, and scan/glitch accents over
 a deterministic original ambient score under `video/public/audio`. Campaign-style

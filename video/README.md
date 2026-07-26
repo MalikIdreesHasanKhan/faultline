@@ -1,6 +1,6 @@
 # FAULTLINE Remotion film
 
-Editable 1920×1080, 30 fps demo film. Runtime: 2 minutes 26 seconds.
+Editable 1920×1080, 30 fps demo film. Runtime: 2 minutes 2 seconds.
 
 The film is a deterministic React composition: no remote fonts, runtime APIs, or
 third-party footage. It is deliberately voiceless; frame-driven kinetic captions
@@ -8,7 +8,9 @@ carry the story through staged word reveals, semantic highlights, directional
 transitions, scan lines, and restrained glitch echoes over an original ambient score
 bundled under `public/audio`. Each chapter opens with a campaign punch card and uses
 impact flashes, hard shutters, parallax HUD motion, camera pushes, speed lines, and
-animated telemetry to keep the entire frame in motion.
+animated telemetry. The center of the film is a continuous cursor-driven product
+session: click investigation, replay lineage, inspect evidence, switch failure modes,
+download the receipt, type approval, authorize, and verify write-back.
 
 ## Generate the original ambient score
 
@@ -46,4 +48,4 @@ Verified render:
 - AAC stereo audio, 48 kHz
 - No voiceover; original ambient score only
 - CRF 22 delivery encode with fast-start metadata
-- 146.048 seconds
+- 122.048 seconds

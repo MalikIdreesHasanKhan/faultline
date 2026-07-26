@@ -1,61 +1,49 @@
-# Remotion visual rundown — 2 minutes 26 seconds
+# Remotion product-demo rundown — 2 minutes 2 seconds
 
-This is the timed visual story implemented in `video/src/FaultlineFilm.tsx`. The
-render is 1920x1080 at 30 fps, contains no voiceover, and stays safely below the
-three-minute limit. The quoted lines below are on-screen captions, not narration.
+The film is 1920x1080 at 30 fps, contains no voiceover, and stays safely below the
+three-minute limit. Short action callouts appear only around interactions; they do
+not remain on screen as conventional subtitles.
 
-## 0:00–0:18 — The tremor
+## 0:00–0:08 — Campaign hook
 
-> A column changed. Your monitor knows. But does your deployed model break?
-> FAULTLINE catches the upstream tremor before the model does.
+The manifesto punch `ONE CHANGE. EVERY CONSEQUENCE.` tears into FAULTLINE’s promise
+and immediately hands off to the product.
 
-The seismic cold-open resolves into the core promise and a DataHub lineage map.
+## 0:08–0:14 — Start the incident
 
-## 0:18–0:45 — The blast radius
+The browser opens on the real console design. A visible cursor crosses the page and
+clicks **Trigger incident replay**. The button changes to `Traversing DataHub…`,
+the page reacts, and the viewport scrolls into the incident.
 
-> A Snowflake order field changed from decimal to text. FAULTLINE follows that
-> field through Feast and MLflow into production. Five assets are exposed. Peak
-> risk: ninety-three. Recommended action: block.
+## 0:14–0:38 — Investigate the blast radius
 
-The graph animates from the changed source through feature, model, deployment, and
-dashboard. The score strip and incident-specific verdict enter as the paths settle.
+The live graph propagates from Snowflake through Feast and MLflow. The cursor clicks
+**Replay propagation**, then moves into the evidence ledger while risk scores,
+paths, and the BLOCK recommendation remain visible.
 
-## 0:45–1:04 — Evidence, not vibes
+## 0:38–0:58 — Replay a failure mode
 
-> Every point is inspectable: signal severity, asset type, criticality, graph
-> distance, and confirmed column lineage. No invented explanation.
+The page smoothly scrolls to Counterfactuals. The cursor clicks
+**Freshness breach**, changing the selected card and producing a RETRAIN replay
+toast, then clicks **Type changed** to restore the observed incident.
 
-The evidence ledger assembles into the deterministic score while the SHA-256-sealed
-receipt appears beside it.
+## 0:58–1:27 — Governed action
 
-## 1:04–1:21 — Counterfactual lab
+The cursor scrolls to Governance, clicks **Download evidence receipt**, enters the
+incident-scoped `APPLY FLT-7242AEB5` approval phrase, and clicks
+**Authorize writes**. Every mutation changes from `STAGED` to `✓ VERIFIED`.
 
-> Same graph. Five failure modes. See how the response changes before you act.
+## 1:27–1:38 — Durable response
 
-Five simultaneous replays compare field removal, type change, null-rate spike,
-freshness breach, and volume anomaly. Their risk and response differ visibly.
+The console scrolls into its machine-speed timeline and confirms that the signal,
+lineage resolution, human approval, and durable context verification all completed.
 
-## 1:21–1:48 — Governed action
+## 1:38–1:51 — Engineering proof
 
-> The agent can act. A human still holds the key. Policy thresholds are versioned,
-> every write is previewed, and only an incident-specific approval phrase opens the
-> boundary. Then FAULTLINE re-reads each mutation and seals the receipt.
+A short campaign transition reveals the actual agent loop, MCP contract, 15 passing
+tests, package build, and validated reusable skill.
 
-Policy-as-code sits beside six staged DataHub writes. The typed approval phrase
-unlocks execution, every write changes to `VERIFIED`, and the seal appears.
+## 1:51–2:02 — Close
 
-## 1:48–2:12 — Engineering proof
-
-> This is not a mockup. The same engine runs credential-free for judges or against
-> open-source DataHub over MCP. Fifteen tests cover scoring, counterfactuals,
-> refusal, ordered writes, MCP contracts, and the full web workflow. A reusable
-> DataHub skill packages the pattern.
-
-The actual agent loop and quality-gate results appear in a terminal composition.
-
-## 2:12–2:26 — Close
-
-> FAULTLINE. Read the graph. Explain the risk. Let a human decide. Leave the graph
-> better.
-
-The final lockup returns to the seismic line and ends on the product promise.
+`READ. REASON. ACT.` resolves into `LEAVE THE GRAPH BETTER.` and the final FAULTLINE
+lockup.
