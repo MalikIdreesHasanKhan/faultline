@@ -40,8 +40,9 @@ No credentials or network access are needed for this judge scenario.
 The submission includes a programmatic Remotion film rather than a captured slide
 deck. Its seven scene-aligned chapters animate the incident graph, evidence ledger,
 five counterfactuals, approval boundary, verified writes, and engineering proof.
-It is deliberately voiceless: animated captions carry the story over a deterministic
-original ambient score under `video/public/audio`.
+It is deliberately voiceless: kinetic, word-level captions carry the rhythm and
+story through staged transitions, highlighted concepts, and scan/glitch accents over
+a deterministic original ambient score under `video/public/audio`.
 
 ```bash
 cd video

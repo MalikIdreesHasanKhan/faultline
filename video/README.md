@@ -3,8 +3,10 @@
 Editable 1920×1080, 30 fps demo film. Runtime: 2 minutes 26 seconds.
 
 The film is a deterministic React composition: no remote fonts, runtime APIs, or
-third-party footage. It is deliberately voiceless; animated captions carry the story
-over an original ambient score bundled under `public/audio`.
+third-party footage. It is deliberately voiceless; frame-driven kinetic captions
+carry the story through staged word reveals, semantic highlights, directional
+transitions, scan lines, and restrained glitch echoes over an original ambient score
+bundled under `public/audio`.
 
 ## Generate the original ambient score
 

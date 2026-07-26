@@ -28,10 +28,161 @@ type SceneProps = {
   eyebrow: string;
   children: React.ReactNode;
   caption?: string;
+  durationInFrames: number;
   number: string;
 };
 
-const Scene: React.FC<SceneProps> = ({eyebrow, children, caption, number}) => {
+const highlightedWords = new Set([
+  "act",
+  "better",
+  "break",
+  "changed",
+  "confidence",
+  "datahub",
+  "decide",
+  "different",
+  "explain",
+  "faultline",
+  "failure",
+  "feast",
+  "five",
+  "graph",
+  "human",
+  "key",
+  "lineage",
+  "mcp",
+  "mlflow",
+  "monitor",
+  "production",
+  "reason",
+  "response",
+  "risk",
+  "snowflake",
+]);
+
+const captionBeats = (text: string) => {
+  const sentences = text.match(/[^.!?]+[.!?]?/g)?.map((part) => part.trim()) ?? [text];
+  return sentences.flatMap((sentence) => {
+    const words = sentence.split(/\s+/);
+    if (words.length < 10) {
+      return [sentence];
+    }
+    const pivot = Math.ceil(words.length / 2);
+    return [words.slice(0, pivot).join(" "), words.slice(pivot).join(" ")];
+  });
+};
+
+const cleanWord = (word: string) => word.toLowerCase().replace(/[^a-z-]/g, "");
+
+const KineticCaption: React.FC<{
+  durationInFrames: number;
+  number: string;
+  text: string;
+}> = ({durationInFrames, number, text}) => {
+  const frame = useCurrentFrame();
+  const beats = captionBeats(text);
+  const start = 34;
+  const end = durationInFrames - 20;
+  const beatLength = Math.max(48, (end - start) / beats.length);
+  const activeBeat = Math.max(
+    0,
+    Math.min(beats.length - 1, Math.floor((frame - start) / beatLength)),
+  );
+
+  return (
+    <div className="kinetic-caption">
+      <div className="caption-scan" style={{backgroundPositionY: `${frame * 1.5}px`}} />
+      <div
+        className="caption-sweep"
+        style={{transform: `translateX(${(frame * 7) % 1700 - 190}px)`}}
+      />
+      <div className="caption-meta">
+        <span>CAPTION {number}</span>
+        <b>
+          {String(activeBeat + 1).padStart(2, "0")} /{" "}
+          {String(beats.length).padStart(2, "0")}
+        </b>
+      </div>
+      <div className="caption-stage">
+        {beats.map((beat, beatIndex) => {
+          const beatStart = start + beatIndex * beatLength;
+          const beatEnd = Math.min(durationInFrames - 8, beatStart + beatLength + 12);
+          const enter = interpolate(frame, [beatStart, beatStart + 12], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.out(Easing.cubic),
+          });
+          const leave = interpolate(frame, [beatEnd - 14, beatEnd], [1, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.in(Easing.cubic),
+          });
+          const visibility = enter * leave;
+          const direction = beatIndex % 2 === 0 ? 1 : -1;
+          const beatProgress = interpolate(frame, [beatStart, beatEnd], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+
+          return (
+            <div
+              className="caption-beat"
+              key={`${beatIndex}-${beat}`}
+              style={{
+                opacity: visibility,
+                filter: `blur(${(1 - enter) * 10 + (1 - leave) * 7}px)`,
+                transform: `translateX(${direction * (1 - enter) * 90}px) scale(${0.96 + enter * 0.04})`,
+              }}
+            >
+              <div
+                className="caption-echo"
+                style={{transform: `translate(${Math.sin(frame / 3) * 3}px, 3px)`}}
+              >
+                {beat}
+              </div>
+              <div className="caption-copy">
+                {beat.split(/\s+/).map((word, wordIndex) => {
+                  const wordIn = spring({
+                    frame: frame - beatStart - wordIndex * 2.5,
+                    fps: FPS,
+                    config: {damping: 16, stiffness: 150, mass: 0.45},
+                  });
+                  const highlighted = highlightedWords.has(cleanWord(word));
+                  const pulse = highlighted
+                    ? 1 + Math.sin((frame - beatStart - wordIndex * 5) / 9) * 0.025
+                    : 1;
+                  return (
+                    <span
+                      className={highlighted ? "caption-word highlighted" : "caption-word"}
+                      key={`${wordIndex}-${word}`}
+                      style={{
+                        opacity: wordIn,
+                        transform: `translateY(${(1 - wordIn) * 28}px) rotateX(${(1 - wordIn) * 68}deg) scale(${pulse})`,
+                      }}
+                    >
+                      {word}
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="caption-progress">
+                <i style={{width: `${beatProgress * 100}%`}} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const Scene: React.FC<SceneProps> = ({
+  eyebrow,
+  children,
+  caption,
+  durationInFrames,
+  number,
+}) => {
   const frame = useCurrentFrame();
   const enter = spring({frame, fps: FPS, config: {damping: 18, stiffness: 110}});
   return (
@@ -48,7 +199,9 @@ const Scene: React.FC<SceneProps> = ({eyebrow, children, caption, number}) => {
         <div className="film-eyebrow">{number} / {eyebrow}</div>
         {children}
       </main>
-      {caption ? <div className="caption">{caption}</div> : null}
+      {caption ? (
+        <KineticCaption durationInFrames={durationInFrames} number={number} text={caption} />
+      ) : null}
       <footer className="film-footer">
         <span>READ → REASON → PROPOSE → APPROVE → WRITE BACK</span>
         <span>BUILT WITH DATAHUB MCP</span>
@@ -102,6 +255,7 @@ const HookScene: React.FC = () => {
       number="00"
       eyebrow="PRODUCTION ML · INCIDENT INTELLIGENCE"
       caption="A column changed. Your monitor knows. But does your deployed model break?"
+      durationInFrames={18 * FPS}
     >
       <div className="hero-film">
         <h1>
@@ -196,6 +350,7 @@ const BlastScene: React.FC = () => {
       number="01"
       eyebrow="INCIDENT"
       caption="FAULTLINE follows the changed field from Snowflake through Feast and MLflow into production."
+      durationInFrames={27 * FPS}
     >
       <div className="title-row">
         <div>
@@ -235,6 +390,7 @@ const EvidenceScene: React.FC = () => {
       number="02"
       eyebrow="EVIDENCE LEDGER"
       caption="Every point has a reason. No invented explanation and no opaque confidence shortcut."
+      durationInFrames={19 * FPS}
     >
       <div className="evidence-layout">
         <div>
@@ -294,6 +450,7 @@ const CounterfactualScene: React.FC = () => {
       number="03"
       eyebrow="COUNTERFACTUAL LAB"
       caption="Same graph. Five failure modes. See how the response changes before you act."
+      durationInFrames={17 * FPS}
     >
       <h2>What if the tremor were different?</h2>
       <div className="mode-grid">
@@ -336,6 +493,7 @@ const GovernanceScene: React.FC = () => {
       number="04"
       eyebrow="GOVERNANCE"
       caption="The agent can act. A human still holds the key."
+      durationInFrames={27 * FPS}
     >
       <div className="govern-title">
         <div><h2>The agent can act.<br/><em>You hold the key.</em></h2></div>
@@ -380,6 +538,7 @@ const EngineeringScene: React.FC = () => {
       number="05"
       eyebrow="ENGINEERING PROOF"
       caption="The same engine runs credential-free for judges or against open-source DataHub over MCP."
+      durationInFrames={24 * FPS}
     >
       <div className="engineering-layout">
         <div>
@@ -426,6 +585,7 @@ const CloseScene: React.FC = () => {
       number="06"
       eyebrow="THE GRAPH REMEMBERS"
       caption="Read the graph. Explain the risk. Let a human decide. Leave the graph better."
+      durationInFrames={14 * FPS}
     >
       <div className="close" style={{transform: `scale(${0.94 + scale * 0.06})`}}>
         <div className="close-logo"><span>F//</span> FAULTLINE</div>

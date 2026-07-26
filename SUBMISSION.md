@@ -46,10 +46,11 @@ TOML. Markdown and JSON evidence receipts include a SHA-256 seal over the canoni
 incident plan.
 
 The 2:26 demo film is built in Remotion at 1920x1080 and 30 fps. It is intentionally
-voiceless and tells the story through animated captions over a deterministic ambient
-score synthesized locally from noise and sine waves. Every frame, transition, graph,
-card, terminal readout, and caption is editable React code rather than a
-screen-recording effect.
+voiceless and tells the story through kinetic captions with word-level reveals,
+semantic highlights, directional transitions, and scan/glitch accents over a
+deterministic ambient score synthesized locally from noise and sine waves. Every
+frame, transition, graph, card, terminal readout, and caption is editable React code
+rather than a screen-recording effect.
 
 ## Use of DataHub
 
