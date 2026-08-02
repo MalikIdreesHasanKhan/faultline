@@ -45,15 +45,13 @@ lifecycle, graph distance, and confirmed field lineage. Policy thresholds live i
 TOML. Markdown and JSON evidence receipts include a SHA-256 seal over the canonical
 incident plan.
 
-The 2:02 demo film is built in Remotion at 1920x1080 and 30 fps. It is intentionally
-voiceless and tells the story through kinetic captions with word-level reveals,
-semantic highlights, directional transitions, and scan/glitch accents over a
-deterministic ambient score synthesized locally from noise and sine waves. Every
-frame, transition, graph, card, terminal readout, and caption is editable React code
-rather than a screen-recording effect. Campaign-style chapter punches, impact
-flashes, scene shutters, parallax HUD motion, camera pushes, speed lines, and
-animated telemetry bookend a continuous cursor-driven walkthrough that clicks the
-real console controls, changes application state, types approval, and verifies writes.
+The recommended 1:40 demo film is built in Remotion at 1920x1080 and 30 fps. It is
+intentionally voiceless and tells one causal incident story through kinetic copy,
+purposeful cursor clicks, graph motion, score arithmetic, a counterfactual replay,
+human approval, and verified write-back. Every frame, transition, graph, card,
+terminal readout, and caption is editable React code. The previous 2:02 composition
+remains available as an alternate under `video/out/faultline-demo.mp4`; the
+recommended cut is `video/out/faultline-demo-v2.mp4`.
 
 ## Use of DataHub
 

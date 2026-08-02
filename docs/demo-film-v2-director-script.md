@@ -3,7 +3,7 @@
 **Working title:** `ONE CHANGE. EVERY CONSEQUENCE.`  
 **Runtime:** 1:40 exactly (3,000 frames at 30 fps)  
 **Format:** 1920×1080, 16:9, H.264, voiceless, original or properly licensed music  
-**Status:** Pre-production script. This document does not describe the current render.  
+**Status:** Implemented as the `FaultlineFilmV2` Remotion composition.
 **Primary category:** Production ML Agents
 
 ## The film in one sentence
@@ -609,4 +609,3 @@ evidence, and governed write-back—and compresses everything else into proof. T
 opening question is answered by the product, the approval click resolves the
 musical tension, and “the graph remembers” gives the entry a phrase judges can use
 when discussing it later.
-

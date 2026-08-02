@@ -6,6 +6,7 @@
   "scripts": {
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts FaultlineFilm out/faultline-demo.mp4 --codec=h264 --crf=22",
+    "render:v2": "remotion render src/index.ts FaultlineFilmV2 out/faultline-demo-v2.mp4 --codec=h264 --crf=22",
     "render:quick": "remotion render src/index.ts FaultlineFilm out/faultline-preview.mp4 --codec=h264 --scale=0.5 --crf=23",
     "still": "remotion still src/index.ts FaultlineThumbnail out/faultline-thumbnail.png",
     "typecheck": "tsc --noEmit"

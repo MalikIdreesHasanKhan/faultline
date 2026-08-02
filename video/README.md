@@ -1,4 +1,26 @@
-# FAULTLINE Remotion film
+# FAULTLINE Remotion films
+
+The recommended submission cut is `FaultlineFilmV2`, runtime 1 minute 40 seconds.
+The original `FaultlineFilm` remains available as a 2 minute 2 second alternate.
+
+## Recommended submission cut — v2
+
+The v2 film is a voiceless incident thriller: a type change enters DataHub, FAULTLINE
+traces the production-model blast radius, proves a score, tests a counterfactual,
+stages governed writes, asks for a human approval phrase, and verifies that the graph
+remembers. It contains five purposeful clicks and no page-length scrolling. The
+frame-accurate director's script is in `../docs/demo-film-v2-director-script.md`.
+
+```bash
+npm run typecheck
+npm run render:v2
+```
+
+The final v2 file is written to `out/faultline-demo-v2.mp4`.
+
+## Alternate original cut
+
+The original composition remains editable and renderable with `npm run render`.
 
 Editable 1920×1080, 30 fps demo film. Runtime: 2 minutes 2 seconds.
 
@@ -35,6 +57,7 @@ Outputs:
 
 - `out/faultline-demo.mp4`
 - `out/faultline-thumbnail.png`
+- `out/faultline-demo-v2.mp4` (recommended submission)
 
 All scene timing and visuals remain editable in `src/FaultlineFilm.tsx`. Scene
 constants live in `src/constants.ts`; the timed visual rundown is documented in
@@ -48,4 +71,4 @@ Verified render:
 - AAC stereo audio, 48 kHz
 - No voiceover; original ambient score only
 - CRF 22 delivery encode with fast-start metadata
-- 122.048 seconds
+- v2: 100.053 seconds
