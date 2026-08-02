@@ -35,27 +35,33 @@ live Kubernetes model deployment. The console then lets you:
 
 No credentials or network access are needed for this judge scenario.
 
-## The 1:40 cinematic demo
+## The 1:40 incident film
 
 The recommended submission is the 1:40 `FaultlineFilmV2` Remotion film. It is a
 voiceless incident thriller built around one causal product story: a type change,
 DataHub lineage, inspectable risk arithmetic, a counterfactual replay, governed
-approval, and verified write-back into the graph. It visibly performs five purposeful
-clicks and keeps captions transient, directional, and part of the interface instead
-of leaving the viewer inside a long page scroll.
+approval, and verified write-back into the graph. Five purposeful clicks reveal the
+risk arithmetic, change the simulated failure, cross the approval boundary, and
+verify durable context. Every transition is caused by product state or moving data;
+there is no long page scroll.
+
+The deterministic original 104 BPM score synchronizes lineage ticks, evidence
+arithmetic, the approval drop, and the six-note verification payoff. The film remains
+fully understandable when muted.
 
 ```bash
 cd video
 npm install
 npm run typecheck
 npm run still
-npm run render:v2
+npm run render
 ```
 
 The final 1920x1080 H.264 film is written to
-`video/out/faultline-demo-v2.mp4`. See [the film README](video/README.md) and the
-[v2 director's script](docs/demo-film-v2-director-script.md). The original 2:02 cut
-is still available as `video/out/faultline-demo.mp4`.
+`video/out/faultline-demo.mp4`. See [the film README](video/README.md) and the
+[v2 director's script](docs/demo-film-v2-director-script.md). The original 2:02
+composition remains renderable with `npm run render:legacy` but is not the submission
+cut.
 
 ## Why it matters
 

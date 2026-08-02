@@ -1,49 +1,53 @@
-# Remotion product-demo rundown — 2 minutes 2 seconds
+# Remotion incident-film rundown — 1 minute 40 seconds
 
-The film is 1920x1080 at 30 fps, contains no voiceover, and stays safely below the
-three-minute limit. Short action callouts appear only around interactions; they do
-not remain on screen as conventional subtitles.
+The film is 1920×1080 at 30 fps, contains no voiceover, and stays safely below the
+three-minute limit. It avoids page-length scrolling and treats short kinetic phrases
+as parts of the composition rather than conventional subtitles. The complete
+frame-accurate plan is in
+[`demo-film-v2-director-script.md`](demo-film-v2-director-script.md).
 
-## 0:00–0:08 — Campaign hook
+## 0:00–0:15 — The tremor
 
-The manifesto punch `ONE CHANGE. EVERY CONSEQUENCE.` tears into FAULTLINE’s promise
-and immediately hands off to the product.
+A real `DECIMAL(18,2) → VARCHAR` event cracks into DataHub lineage. Five downstream
+assets light up before the FAULTLINE mark becomes the working console.
 
-## 0:08–0:14 — Start the incident
+## 0:15–0:22 — Trigger the investigation
 
-The browser opens on the real console design. A visible cursor crosses the page and
-clicks **Trigger incident replay**. The button changes to `Traversing DataHub…`,
-the page reacts, and the viewport scrolls into the incident.
+The cursor clicks **Trigger incident replay**. The button changes to
+`Traversing DataHub…` and its seismic ring becomes the incident workspace.
 
-## 0:14–0:38 — Investigate the blast radius
+## 0:22–0:34 — Trace the blast radius
 
-The live graph propagates from Snowflake through Feast and MLflow. The cursor clicks
-**Replay propagation**, then moves into the evidence ledger while risk scores,
-paths, and the BLOCK recommendation remain visible.
+The graph propagates from Snowflake through Feast and MLflow into a production
+deployment and dashboard. Risk settles at 93 peak with `BLOCK` clearly labelled as
+the recommended action.
 
-## 0:38–0:58 — Replay a failure mode
+## 0:34–0:55 — Prove and seal the decision
 
-The page smoothly scrolls to Counterfactuals. The cursor clicks
-**Freshness breach**, changing the selected card and producing a RETRAIN replay
-toast, then clicks **Type changed** to restore the observed incident.
+Selecting `churn-predictor · 92` opens the exact score arithmetic and confirmed
+column path. The evidence compresses into the SHA-256-sealed incident receipt.
 
-## 0:58–1:27 — Governed action
+## 0:55–1:05 — Change the failure
 
-The cursor scrolls to Governance, clicks **Download evidence receipt**, enters the
-incident-scoped `APPLY FLT-7242AEB5` approval phrase, and clicks
-**Authorize writes**. Every mutation changes from `STAGED` to `✓ VERIFIED`.
+The cursor changes the signal to **Freshness breach**; the same graph produces
+`RETRAIN`. It then restores the observed **Type changed** incident and `BLOCK`.
 
-## 1:27–1:38 — Durable response
+## 1:05–1:22 — Cross the approval boundary
 
-The console scrolls into its machine-speed timeline and confirms that the signal,
-lineage resolution, human approval, and durable context verification all completed.
+Five tags and one incident document arrive as `STAGED`. The approval phrase is typed
+in three bursts; **Authorize writes** unlocks and all durable context writes verify.
 
-## 1:38–1:51 — Engineering proof
+## 1:22–1:31 — The graph remembers
 
-A short campaign transition reveals the actual agent loop, MCP contract, 15 passing
-tests, package build, and validated reusable skill.
+`add_tags` and `save_document` travel back along the graph. The updated context is
+ready for the next responder or agent instead of disappearing with the incident.
 
-## 1:51–2:02 — Close
+## 1:31–1:36 — Engineering proof
 
-`READ. REASON. ACT.` resolves into `LEAVE THE GRAPH BETTER.` and the final FAULTLINE
-lockup.
+One moving proof rail shows DataHub MCP, 15/15 tests, read-after-write verification,
+Apache-2.0, and the four-second credential-free judge path.
+
+## 1:36–1:40 — Close
+
+The proof rail becomes a calm seismograph and resolves into the final FAULTLINE
+lockup: `Catch the tremor before the model breaks.`
