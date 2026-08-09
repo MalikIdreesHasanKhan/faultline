@@ -35,34 +35,6 @@ live Kubernetes model deployment. The console then lets you:
 
 No credentials or network access are needed for this judge scenario.
 
-## The 1:40 incident film
-
-The recommended submission is the 1:40 `FaultlineFilmV2` Remotion film. It is a
-voiceless incident thriller built around one causal product story: a type change,
-DataHub lineage, inspectable risk arithmetic, a counterfactual replay, governed
-approval, and verified write-back into the graph. Five purposeful clicks reveal the
-risk arithmetic, change the simulated failure, cross the approval boundary, and
-verify durable context. Every transition is caused by product state or moving data;
-there is no long page scroll.
-
-The deterministic original 104 BPM score synchronizes lineage ticks, evidence
-arithmetic, the approval drop, and the six-note verification payoff. The film remains
-fully understandable when muted.
-
-```bash
-cd video
-npm install
-npm run typecheck
-npm run still
-npm run render
-```
-
-The final 1920x1080 H.264 film is written to
-`video/out/faultline-demo.mp4`. See [the film README](video/README.md) and the
-[v2 director's script](docs/demo-film-v2-director-script.md). The original 2:02
-composition remains renderable with `npm run render:legacy` but is not the submission
-cut.
-
 ## Why it matters
 
 Monitoring tools tell an on-call engineer that a column changed. FAULTLINE answers
@@ -95,9 +67,7 @@ inherit context       report partials        required at write boundary
 
 There is no opaque “AI confidence” shortcut. Risk is deterministic and every point
 has a reason: signal severity, asset type, criticality, production lifecycle, hop
-distance, and confirmed column lineage. The agent reports concise evidence—not
-private chain-of-thought.
-
+distance, and confirmed column lineage. The agent reports concise evidence and not private chain of thought.
 ## DataHub integration
 
 The production adapter speaks the official streamable-HTTP MCP interface:
