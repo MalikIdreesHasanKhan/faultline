@@ -17,8 +17,6 @@ so each criterion has visible proof.
 as an upstream contribution candidate. It codifies a safe DataHub-native ML incident
 workflow and uses the official read and mutation tool names.
 
-Do not claim the bonus until a public upstream pull request exists. Link that pull
-request in the final submission if accepted or under active review.
 
 ## Claims discipline
 
