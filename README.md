@@ -149,7 +149,6 @@ video/              editable Remotion film, ambient score, and render scripts
 ```
 
 See [architecture](docs/architecture.md), [judging map](docs/judging-map.md), and
-[demo script](docs/demo-script.md).
 
 ## Contest and license
 
